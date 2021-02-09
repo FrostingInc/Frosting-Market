@@ -14,7 +14,7 @@ function wcv_add_ga_code(){
 				  'label'         => __( 'Google Analytics Tracking ID', 'wcvendors-pro' ),
 				  'placeholder' 		=> __( 'UA-XXXXXXX-X', 'wcvendors-pro' ), 
 				  'desc_tip'          => 'true',
-				  'description'       => __( 'Google Analytics monitors customer activity and generates reports that help you grow your business — for free. </br> <a href="https://frosting.helpscoutdocs.com/article/151-setting-up-google-analytics">Learn more and how to set up Google Analytics.</a> ', 'wcvendors-pro' ),
+				  'description'       => __( 'Google Analytics monitors customer activity and generates reports that help you grow your business — for free. </br> <a href="https://frosting.helpscoutdocs.com/article/151-setting-up-google-analytics">How to set up Google Analytics.</a> ', 'wcvendors-pro' ),
 				  'wrapper_start' => '<div class="all-100">',
 				  'wrapper_end'   => '</div>',
 				  'value'			=> $value
