@@ -1,0 +1,637 @@
+/*!
+Theme Name: Kadence Child
+Theme URI: https://www.kadencewp.com/kadence-theme/
+Template: kadence
+Author: Kadence WP
+Author URI: https://www.kadencewp.com/
+Description: A child theme for the Kadence Theme.
+Version: 1.0.0
+License: GNU General Public License v3.0 (or later)
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: kadence-child
+*/
+
+/*------------------------------------*
+    $STYLE.CSS CONTENTS
+*------------------------------------*/
+/**
+* TEST CODE
+*
+* DEVICE TARGET
+*
+* GENERAL, HEADER, MENU, FOOTER
+*
+* WOOCOMMERCE
+* - GENERAL
+* - PRODUCT ARCHIVE
+* - SINGLE PRODUCT PAGE
+*
+* WC VENDORS
+* - GENERAL
+* - BAKERY LIST PAGE
+* - SINGLE BAKERY SHOPS
+* - PRODUCTS
+* - ORDERS
+* - PROMOTIONS
+* - BOOKINGS
+* - SETTINGS
+*
+* BLOG
+*
+* UNUSED CODE
+*
+* USEFUL INFORMATION
+* - MOBILE BREAKPOINTS
+* - COLOR PALETTE
+*
+*/
+
+/*------------------------------------*
+	$TEST CODE
+*------------------------------------*/
+
+/*------------------------------------*
+	$DEVICE TARGET
+*------------------------------------*/
+/** Phone */
+@media screen and (max-width: 768px) {
+    /* WC Shop Archive - remove padding on item loop */
+    .woocommerce ul.products li.product .entry-content-wrap {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    /* Remove WCV Navigation */
+    .wcv-grid nav.wcv-navigation {
+        display: none;
+    }
+}
+
+/** Phone & Tablet */
+@media screen and (max-width: 1024px) {
+    /* Tab bar */
+    #bne-navbar {
+        z-index: 99999;
+    }
+    #bne-navbar .bne-navbar-inner {
+        padding-bottom: 3px;
+    }
+    /* Tab bar - Label */
+    #bne-navbar .bne-navbar-title {
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: -4px;
+    }
+    #bne-navbar, #bne-navbar * {
+        text-decoration: none;
+    }
+    /* WC Shop Archive - move filters to the left and dropdown right */
+    .kadence-shop-top-row {
+        justify-content: space-between;
+    }
+    /* Add border to bottom of top menu item */
+    .menu_top_link a {
+        border-bottom: 1px solid rgba(129,129,129,.2) !important;
+    }
+}
+
+/** Tablet */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Limit width of menu */
+      .popup-drawer.active .drawer-inner {
+        max-width: 340px;
+      }
+}
+
+/** Desktop */
+@media screen and (min-width: 1025px) {
+    .wcv-store-header.header-modern .info .about {
+        text-shadow:   0.05em 0 #21212190, 0 0.05em #21212190, -0.05em 0 #21212190, 0 -0.05em #21212190, -0.05em -0.05em #21212190, -0.05em 0.05em #21212190, 0.05em -0.05em #21212190, 0.05em 0.05em #21212190;
+    }
+}
+
+/*------------------------------------*
+	$GENERAL, HEADER, MENU, FOOTER
+*------------------------------------*/
+
+/*----------  GENERAL   ---------- */
+/** Kadence default was breaking WCV SM */
+.content-area {
+    word-break: normal;
+}
+/** Social Login buttons **/
+.button-social-login, .widget-area .widget a.button-social-login, a.button-social-login, button.button-social-login, input.button-social-login {
+    width: 268px;
+    border-radius: 6px;
+}
+
+/*----------  HEADER   ---------- */
+
+/** Hide account icon for signed in users **/
+.header-mobile-account-in-wrap.header-account-control-wrap.header-account-action-link.header-account-style-icon {
+    display: none;
+}
+
+/*----------  MENU   ---------- */
+
+/** Top Link **/
+.menu_top_link{
+    min-height: 48px;
+}
+.menu_top_link a {
+    font-size: 16px;
+    font-weight: 500;
+}
+/** Sell on Frosting Button **/
+.menu_button {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.menu_button a {
+    color: #ffffff !important;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 0 !important;
+    background: #FC5C65 !important;
+    border-radius: 6px;
+}
+/** Heading - Section Header */
+.menu_section-header {
+    margin-left: -24px;
+    margin-right: -24px;
+}
+.menu_section-header a {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-left: 16px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    line-height: 18px;
+    border-bottom: none !important;
+    background: rgba(0,0,0,.05) !important;
+}
+.menu_section-header a:hover {
+    color: #212121 !important;
+}
+/** Menu - Sub **/
+.menu_sub a {
+    padding-left: 16px !important;
+    border-bottom: 0 !important;
+    padding-top: .7em !important;
+    padding-bottom: .7em !important;
+    font-weight: 400;
+}
+/** Small Blank **/
+.menu_blank {
+    height: 16px;
+}
+.menu_blank a {
+	  visibility: hidden;
+}
+/** Large Blank **/
+.menu_blank_large {
+    height: 40px;
+}
+.menu_blank_large a {
+    visibility: hidden;;
+}
+/** Border on Dropdown Menu item **/
+.mobile-navigation ul li.menu-item-has-children .drawer-nav-drop-wrap, .mobile-navigation ul li:not(.menu-item-has-children) a {
+    border-bottom: 1px solid rgba(129,129,129,0.2);
+}
+
+/*------------------------------------*
+	$WOOCOMMERCE
+*------------------------------------*/
+
+/*----------  WC - GENERAL   ---------- */
+
+/** Force media upload to show
+* ! THIS IS A TEMP HACK
+*/
+#menu-item-upload {
+    color: #212121;
+}
+#menu-item-browse {
+    color: #212121;
+}
+/** Cart Slideout Widget */
+.woocommerce.widget_shopping_cart .buttons a:not(.checkout), .woocommerce .widget_shopping_cart .buttons a:not(.checkout) {
+    display: none;
+}
+.woocommerce.widget_shopping_cart .buttons a, .woocommerce .widget_shopping_cart .buttons a {
+    padding: 0.8em 1em;
+}
+#cart-drawer h2.side-cart-header {
+    font-size: 24px;
+}
+#cart-drawer.popup-drawer .drawer-header {
+    border-bottom: 1px solid rgba(129,129,129,.2);
+}
+/** Wishlist Page - Hide Variations
+* ! BUG 
+*/
+.tinv-wishlist td.product-name a + .variation {
+    display: none;
+}
+
+/*----------  WC - PRODUCT ARCHIVE   ---------- */
+
+/** Rating Color */
+.jdgm-prev-badge__stars {
+    color: #fed330;
+}
+/** Vendor's name */
+.product-action-wrap, .wcvendors_sold_by_in_loop {
+    line-height: 1.2;
+}
+.wcvendors_sold_by_in_loop {
+    color: #727272;
+}
+/** Hide Add to Cart */
+.woocommerce ul.products:not(.woo-archive-btn-button) .button {
+    display: none;
+}
+/** FACETWP - Hide counter */
+.facetwp-counter {
+    display: none;
+}
+/** FACETWP - Reset button */
+a.my-reset-btn {
+    font-size: 14px;
+    color: red !important;
+}
+/** JUDGEME - Hide review count */
+.woocommerce ul.products li.product .jdgm-prev-badge__text {
+    display: none;
+}
+
+/*----------  WC - SINGLE PRODUCT PAGE   ---------- */
+
+/** WCV - Sold by link */
+.woocommerce div.product div.summary .wcvendors_cart_sold_by_meta {
+    color: #4B7BEC;
+    text-decoration: none;
+}
+/** Price */
+.woocommerce div.product span.price, .woocommerce div.product p.price {
+    font-weight: 600;
+    font-size: 1.5em;
+}
+/** Tyches Booking - Hide Dynamic Total below calendar */
+div#bkap-price-box {
+    display: none !important;
+}
+/** Extra Product Options - Add padding & margin */
+.single-product div.product table.extra-options th, table.extra-options .section-title {
+    padding-bottom: 12px;
+}
+.single-product div.product table.extra-options th.above, table.extra-options td.label.above {
+    margin-bottom: 8px;
+}
+.sublabel-tag.extraoptions_option-description {
+    font-size: 14px !important;
+}
+.single-product div.product table.extra-options th.above, table.extra-options td.value.above {
+    margin-bottom: 16px;
+}
+/** TI Wishlist - Wishlist button **/
+.single-product div.product form.cart .button.tinvwl_add_to_wishlist_button, div.product form.cart .tinvwl_add_to_wishlist_button {
+    background-color: #FC5C65;
+    width: 100%;
+    line-height: 30px;
+    text-align: center;
+    font-size: 1em;
+    color: #ffffff;
+    border-radius: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.tinvwl_add_to_wishlist_button.tinvwl-icon-heart.icon-white.button.btn-wishlist.tinvwl-position-after:hover {
+    background-color: #EB3B5A;
+    color: #ffffff;
+}
+/** TI Wishlist - Wishlist button when Out of Stock */
+.tinv-wishlist.tinvwl-after-add-to-cart .tinvwl_add_to_wishlist_button {
+    margin-top: 16px;
+    background-color: #FC5C65;
+    width: 100%;
+    line-height: 30px;
+    font-size: 1em;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*------------------------------------*
+	$WC VENDORS
+*------------------------------------*/
+
+/*----------  WCV - GENERAL   ---------- */
+
+.page-numbers {
+    display: inline-flex;
+}
+.page-numbers li {
+    padding: .25em;
+}
+
+/*----------  WCV - BAKERY LIST PAGE   ---------- */
+
+.bakerylist_shop {
+    font-weight: 600;
+}
+.bakerylist_location {
+    font-weight: 600;
+}
+.bakerylist_description {
+    margin-left: 32px;
+    margin-right: 32px;
+}
+.bakerylist_shopbutton .kt-btn-inner-text {
+    font-weight: 500;
+}
+
+/*----------  WCV - SINGLE BAKERY SHOP   ---------- */
+
+/** Banner */
+.wcv-store-header.header-modern .cover {
+    background-blend-mode: darken;
+    background-color: #00000020;
+}
+.wcv-store-header.header-modern .info .name .txt {
+    font-weight: 600;
+}
+.wcv-store-header.header-modern .info .desc {
+    font-weight: 500;
+}
+.wcv-store-header.header-modern .meta .wcv-icon {
+    width: 16px;
+    height: 16px;
+}
+/** Hide Shop Header Archive Title */
+.wcv-store-header ~ .entry-hero {
+    display: none;
+}
+
+/*----------  WCV SM - GENERAL   ---------- */
+
+/** Page Background */
+.page-id-11 .content-area {
+    background: #F5F6F7;
+    padding-bottom: 24px;
+}
+/** SM Sidebar */
+.wcv-navigation ul.menu.black {
+    background: #3F4A59;
+}
+.wcv-navigation ul.menu.black li.active {
+    background: #0FB9B1;
+}
+.wcv-navigation ul.menu.black li a:hover {
+    background: #0FB9B1;
+}
+/** Select2 fields */
+  body .select2-container--default {
+      width: 100% !important;
+  }
+  /** Try to fix Select2 box height to match text box */
+  .select2-container--default .select2-selection--single {
+      height: 44px;
+  }
+  .select2-container .select2-selection--single .select2-selection__rendered {
+      padding-top: 8px;
+      padding-bottom: 8px;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 42px;
+  }
+/** Fix border-radius for text inputs */
+.wcv-form input[type=text] {
+    border-radius: 6px;
+}
+/** Input field text color */
+.wcv-grid input, .wcv-grid textarea {
+    color: #212121;
+}
+/** Make tips font smaller and inline with theme color */
+.wcv-form p.tip {
+    font-size: 12px;
+    color: #727272;
+    margin: .4em 0 0 .1em;
+}
+/** BUTTONS & LINKS */
+/** Needed to force some buttons to make text white */
+.wcv-grid input button, html input[type="button"], input[type="reset"], input[type="submit"] {
+    color: #ffffff;
+}
+/** Fix some buttons that need white text on hover */
+.wcv-grid a:hover {
+    color: none;
+}
+/** Underline links on hover */
+.link-style-no-underline .entry-content a:hover {
+    text-decoration: underline;
+}
+/** Dashboard */
+.wcv_dashboard_overview.wcv-cols-group.wcv-horizontal-gutters {
+    display: none;
+}
+/** Buttons */
+#update_button {
+    color: #ffffff;
+}
+
+/*----------  WCV SM - PRODUCTS   ---------- */
+
+/** Force show product actions */
+.wcv-grid table .row-actions {
+    opacity: 1;
+}
+/** Add padding & color to action buttons */
+.row-actions.row-actions-product a {
+    padding-right: 8px !important;
+}
+.wcv-grid table .row-actions a {
+    color: #4B7BEC;
+}
+/** Media heading */
+.wcv-product-media h6 {
+    font-weight: 500;
+    font-size: 17px;
+    color: #212121;
+}
+/** Section Headings */
+.wcv-product-type {
+    padding-bottom: 24px;
+}
+/** Tyches Booking - Hide Integration tab */
+a#integrations_settings {
+    display: none;
+}
+/** Buttons */
+#product_save_button {
+    color: #ffffff;
+    margin-top: 16px;
+}
+#draft_button {
+    color: #ffffff;
+}
+
+/*----------  WCV SM - ORDERS   ---------- */
+
+/** Add background color to table heading */
+table:not(.has-background) th {
+    background-color: #f8f8f8;
+}
+/** Add padding & color to action buttons */
+.wcv-grid table .row-actions-order a {
+    padding-top: 4px;
+}
+/** Close gap on order details table */
+.wcv-grid p, .wcv-grid table {
+    margin-top: 0 !important;
+    margin-bottom: 1.305em !important;
+}
+/** Shrink font to 14px for orders table */
+table.wcvendors-table.wcvendors-table-order.wcv-table {
+    font-size: 14px;
+}
+/** Close button not showing on Order Details popup */
+.wcv-modal > .modal-header > .modal-close, .wcv-modal > header > .modal-close {
+    color: #212121;
+}
+/** Fix an issue that maybe a bug.  It makes the syntax bad. 
+* ! POSSIBLE BUG
+*/
+  .wcv-modal > .modal-header > .modal-close, .wcv-modal > header > .modal-close {
+      background: none;
+      width: 1;
+  }
+  .wcv-form .control-group label {
+      color: #212121;
+      font-weight: 500;
+      font-size: 17px;
+      margin-bottom: 5px;
+      display: block;
+  }
+  /** Fix the issues caused by the css above */
+  .wcv-form .control-group input[type="checkbox"] + label, .wcv-form .control-group input[type="radio"] + label {
+      font-weight: normal;
+      font-size: 16px;
+  }
+/** BUTTONS */
+#clear_button {
+    color: #ffffff;
+}
+
+/*----------  WCV SM - PROMOTIONS   ---------- */
+
+/** Buttons */
+#coupon_save_button {
+    color: #ffffff;
+}
+
+/*----------  WCV SM - BOOKING   ---------- */
+
+/** Buttons */
+#bkap_bookings_data, table.wcv-table strong {
+      color: #212121;
+}
+
+/*----------  WCV SM - SETTINGS   ---------- */
+
+/** Buttons */
+#store_save_button {
+    color: #ffffff;
+}
+
+/*------------------------------------*
+	$BLOG
+*------------------------------------*/
+
+/*----------  BLOG ARCHIVES   ---------- */
+
+/** Sidebar Category Headings */
+.blog_sidebar_category > a {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/*------------------------------------*
+	$UNUSED CODE
+*------------------------------------*/
+
+/*----------  USE INTER FONT - VARIABLE   ---------- *
+@font-face {
+    font-family: 'Inter var';
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    font-named-instance: 'Regular';
+    src: url("https://www.frostingmarket.com/wp-content/themes/frosting/fonts/Inter-roman.var.woff2?v=3.15") format("woff2");
+  }
+  @font-face {
+    font-family: 'Inter var';
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: italic;
+    font-named-instance: 'Italic';
+    src: url("https://www.frostingmarket.com/wp-content/themes/frosting/fonts/Inter-italic.var.woff2?v=3.15") format("woff2");
+  }
+
+/*------------------------------------*
+	$USEFUL INFORMATION
+*------------------------------------*/
+/* ----------  MOBILE BREAKPOINTS   ---------- *
+Mobile  - < 768 px
+Tablet  - 769 - 1024 px
+Desktop - 1025 + px
+
+https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+
+/*----------  COLORS   ----------*/
+/** Frosting Brand *
+    brand #5050E6
+    brand print CMYK: #545da5 or 77, 66, 0, 0
+/** Frosting Website Elements *
+    primary buttons { color: #4B7BEC }
+    primary hover { color: #3867D6 }
+    secondary FusionRedLike { color: #FC5C65 }
+    secondary hover Warning, Delete Desire { color: #EB3B5A }
+    text headers bold { color: #212121 }
+    text body longer text like paragraph any lighter text will make the user squint on long paragraphs. { color: #333333 }
+    text body used for text where you need a mix of all three colors only used in short bursts. { color: #484848}
+    text light this is for text goes under bold headings { color: #727272 }
+    text subtitle { color: #adadad }
+    section borders { color: #EBEBEB }
+    FaintButtonBorderBackground { color: #F2F2F2 }
+    Form Background { color: #FAFAFA }
+    ShopManagerSidebar { color: #3F4A59 }
+    ShopManagerSidebarHover { color: #0FB9B1 }
+    ShopManagerBackground { color: #F5F6F7 }
+/** Frosting Other Colors *
+    OrangeHibiscus { color: #FD9644 }
+    BeniukonBronze { color: #FA8231 }
+    FlirtatiousStarRating { color: #FED330 }
+    NYCTaxi { color: #F7B731 }
+    ReptileGreen { color: #26DE81 }
+    AlgalFuel-Price { color: #20BF6B }
+    MaximumBlueGreen { color: #2BCBBA }
+    TurquoiseTopaz { color: #0FB9B1 }
+    HighBlue { color: #45AAF2 }
+    Boyzone { color: #2D98DA }
+    LighterPurple { color: #A55EEA }
+    GloomyPurple { color: #8854D0 }
+    TwinkleBlue { color: #D1D8E0 }
+    Innuendo { color: #A5B1C2 }
+    BlueGrey { color: #778CA3 }
+    BlueHorizon { color: #4B6584 }
+    White { color: #FFFFFF }
+    Black { color: #000000 }
+
+**/
