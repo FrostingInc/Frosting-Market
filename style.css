@@ -1,4 +1,4 @@
-/*!
+/*
 Theme Name: Kadence Child
 Theme URI: https://www.kadencewp.com/kadence-theme/
 Template: kadence
@@ -14,7 +14,7 @@ Text Domain: kadence-child
 /*------------------------------------*
     $STYLE.CSS CONTENTS
 *------------------------------------*/
-/**
+/*
 * TEST CODE
 *
 * DEVICE TARGET
@@ -30,6 +30,7 @@ Text Domain: kadence-child
 * - GENERAL
 * - BAKERY LIST PAGE
 * - SINGLE BAKERY SHOPS
+* - DASHBOARD
 * - PRODUCTS
 * - ORDERS
 * - PROMOTIONS
@@ -55,14 +56,29 @@ Text Domain: kadence-child
 *------------------------------------*/
 /** Phone */
 @media screen and (max-width: 768px) {
-    /* WC Shop Archive - remove padding on item loop */
+    /** WC Shop Archive - remove padding on item loop */
     .woocommerce ul.products li.product .entry-content-wrap {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
-    /* Remove WCV Navigation */
+    /** Remove WCV Navigation */
     .wcv-grid nav.wcv-navigation {
         display: none;
+    }
+    /** WCV - Dashboard More room on calendar dropdowns */
+    .wcv_dashboard_datepicker.wcv-cols-group .all-66.tiny-50 {
+        width: 100%;
+    }
+    .wcv_dashboard_datepicker.wcv-cols-group .all-33 {
+        width: 100%;
+    }
+    /** WCV - Dashboard label above update button adds padding so remove it */
+    .wcv_dashboard_datepicker .wcv-form .control-group .control label {
+        display: none;
+    }
+    /** WCV - Settings save button 100% width */
+    #store_save_button {
+        width: 100%;
     }
 }
 
@@ -84,11 +100,11 @@ Text Domain: kadence-child
     #bne-navbar, #bne-navbar * {
         text-decoration: none;
     }
-    /* WC Shop Archive - move filters to the left and dropdown right */
+    /** WC Shop Archive - move filters to the left and dropdown right */
     .kadence-shop-top-row {
         justify-content: space-between;
     }
-    /* Add border to bottom of top menu item */
+    /** Add border to bottom of top menu item */
     .menu_top_link a {
         border-bottom: 1px solid rgba(129,129,129,.2) !important;
     }
@@ -115,9 +131,10 @@ Text Domain: kadence-child
 
 /*----------  GENERAL   ---------- */
 /** Kadence default was breaking WCV SM */
-.content-area {
-    word-break: normal;
+.entry-content {
+	word-break: normal;
 }
+
 /** Social Login buttons **/
 .button-social-login, .widget-area .widget a.button-social-login, a.button-social-login, button.button-social-login, input.button-social-login {
     width: 268px;
@@ -182,6 +199,8 @@ Text Domain: kadence-child
     padding-top: .7em !important;
     padding-bottom: .7em !important;
     font-weight: 400;
+    font-size: 14px;
+    
 }
 /** Small Blank **/
 .menu_blank {
@@ -280,11 +299,34 @@ a.my-reset-btn {
     font-weight: 600;
     font-size: 1.5em;
 }
+/** Tyches Booking - Box Styling */
+.bkap-booking-form {
+    border: 0 !important;
+    padding: 0 !important;
+}
+label.book_start_date_label {
+    font-size: 18px;
+    font-weight: 700;
+}
 /** Tyches Booking - Hide Dynamic Total below calendar */
 div#bkap-price-box {
     display: none !important;
 }
+/** Variation Title */
+.woocommerce div.product form.cart .variations label {
+    font-size: 18px;
+    font-weight: 700;
+}
 /** Extra Product Options - Add padding & margin */
+.extraoptions_section-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+table.extra-options .label-tag {
+    font-size: 16px;
+    font-weight: 600;
+    color: #212121;
+}
 .single-product div.product table.extra-options th, table.extra-options .section-title {
     padding-bottom: 12px;
 }
@@ -422,7 +464,7 @@ div#bkap-price-box {
 .wcv-form p.tip {
     font-size: 12px;
     color: #727272;
-    margin: .4em 0 0 .1em;
+    margin: .4em 0 .4em .1em;
 }
 /** BUTTONS & LINKS */
 /** Needed to force some buttons to make text white */
@@ -437,17 +479,77 @@ div#bkap-price-box {
 .link-style-no-underline .entry-content a:hover {
     text-decoration: underline;
 }
-/** Dashboard */
+
+/*----------  WCV SM - DASHBOARD   ---------- */
+/** Make quick links look like buttons */
+a.button.quick-link-btn {
+    color: #ffffff;
+    margin-bottom: 8px;
+    border: 1px solid;
+}
+a.button.quick-link-btn:hover {
+    text-decoration: none;
+}
+a.button.quick-link-btn.product {
+    margin-right: 8px;
+    border-color: #FC5C65;
+    background: #FC5C65;
+}
+a.button.quick-link-btn.shop_coupon {
+    background: #ffffff;
+    color: #FC5C65;
+    border-color: #FC5C65;
+}
+a.button.quick-link-btn.product:hover {
+    margin-right: 8px;
+    border-color: #EB3B5A;
+    background: #EB3B5A;
+}
+a.button.quick-link-btn.shop_coupon:hover {
+    background: transparent;
+    color: #EB3B5A;
+    border-color: #EB3B5A;
+}
+/** Add some right margin to end date calendar */
+.wcv_dashboard_datepicker.wcv-cols-group .all-66.tiny-50 .control {
+    margin-right: 8px;
+}
+#update_button {
+    color: #212121;
+    background: #ffffff;
+    border: 1px solid;
+    border-color: #21212170;
+}
+#update_button:hover {
+    color: #212121 !important;
+    background: transparent;
+    border-color: #212121;
+}
+
+/*----------  WCV SM - PRODUCTS - DASHBOARD  ---------- */
 .wcv_dashboard_overview.wcv-cols-group.wcv-horizontal-gutters {
     display: none;
 }
-/** Buttons */
-#update_button {
-    color: #ffffff;
+/** Add padding to search text box */
+.wcv-form .control-group .control.append-button>span {
+    padding-right: 8px;
 }
-
-/*----------  WCV SM - PRODUCTS   ---------- */
-
+/** Add Product button styling */
+.wcv-product-table-actions-before a.wcv-button.button.quick-link-btn {
+    border-color: #FC5C65;
+    background: #FC5C65;
+}
+.wcv-product-table-actions-before a.wcv-button.button.quick-link-btn:hover {
+    border-color: #EB3B5A;
+    background: #EB3B5A;
+}
+/** Hide 'Search' and 'Add Product' buttons on the bottom */
+.wcv_dashboard_table_header.wcv-cols-group.wcv-search.wcv-product-table-search-after {
+    display: none;
+}
+.wcv_actions.wcv-cols-group.wcv-product-table-actions-after {
+    display: none;
+}
 /** Force show product actions */
 .wcv-grid table .row-actions {
     opacity: 1;
@@ -459,6 +561,8 @@ div#bkap-price-box {
 .wcv-grid table .row-actions a {
     color: #4B7BEC;
 }
+
+/*----------  WCV SM - PRODUCTS - ADD/EDIT  ---------- */
 /** Media heading */
 .wcv-product-media h6 {
     font-weight: 500;
@@ -468,6 +572,28 @@ div#bkap-price-box {
 /** Section Headings */
 .wcv-product-type {
     padding-bottom: 24px;
+}
+.wcv-search-product {
+    margin-top: 10px;
+    color: #333;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 3px !important;
+    border-color: #adadad;
+}
+/** Add top padding to Variation dropdown */
+.wcv-variation-action-container {
+    margin-top: 16px;
+}
+/** Needed to make select variation option fit below dropdown */
+.woocommerce_attribute.wcv-metabox.closed.taxonomy.pa_select-an-option {
+    display: inline-block;
+    width: 100%;
+}
+/** Add color to remove option */
+a.remove_row.delete {
+    color: red;
+    font-weight: 400;
 }
 /** Tyches Booking - Hide Integration tab */
 a#integrations_settings {
@@ -493,10 +619,11 @@ table:not(.has-background) th {
     padding-top: 4px;
 }
 /** Close gap on order details table */
-.wcv-grid p, .wcv-grid table {
-    margin-top: 0 !important;
-    margin-bottom: 1.305em !important;
+table.wcvendors-table.wcvendors-table-order.wcv-table p {
+    margin-top: 0px;
+    margin-bottom: 16px;
 }
+
 /** Shrink font to 14px for orders table */
 table.wcvendors-table.wcvendors-table-order.wcv-table {
     font-size: 14px;
@@ -515,7 +642,7 @@ table.wcvendors-table.wcvendors-table-order.wcv-table {
   .wcv-form .control-group label {
       color: #212121;
       font-weight: 500;
-      font-size: 17px;
+      font-size: 14px;
       margin-bottom: 5px;
       display: block;
   }
@@ -530,6 +657,19 @@ table.wcvendors-table.wcvendors-table-order.wcv-table {
 }
 
 /*----------  WCV SM - PROMOTIONS   ---------- */
+/** Add Promotion dashboard button styling */
+.wcv-shop_coupon-table-actions-before a.wcv-button.button.quick-link-btn {
+    border-color: #FC5C65;
+    background: #FC5C65;
+}
+.wcv-shop_coupon-table-actions-before a.wcv-button.button.quick-link-btn:hover {
+    border-color: #EB3B5A;
+    background: #EB3B5A;
+}
+/** Hide bottom 'Add Promotion' button */
+.wcv_dashboard_table_header.wcv_actions.wcv-cols-group.wcv-shop_coupon-table-actions-after {
+    display: none;
+}
 
 /** Buttons */
 #coupon_save_button {
@@ -547,7 +687,14 @@ table.wcvendors-table.wcvendors-table-order.wcv-table {
 
 /** Buttons */
 #store_save_button {
+    border-color: #FC5C65;
+    background: #FC5C65;
     color: #ffffff;
+    margin-top: 16px;
+}
+#store_save_button:hover {
+    border-color: #EB3B5A;
+    background: #EB3B5A;
 }
 
 /*------------------------------------*
