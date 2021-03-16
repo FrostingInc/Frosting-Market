@@ -42,6 +42,15 @@ function child_enqueue_styles() {
 	$TEST CODE
 *------------------------------------*/
 
+function helpscout_beacon() {
+	if (is_page ('11')) { 
+		?>
+			<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+			<script type="text/javascript">window.Beacon('init', '6ec654ae-7a21-494f-879d-8b5865fbd3ba')</script>
+		<?php
+	}
+  }
+  add_action('wp_footer', 'helpscout_beacon');
 
 
 /*------------------------------------*
@@ -149,7 +158,7 @@ add_action( 'woocommerce_before_my_account', 'show_my_view_store' );
 		echo '<a href="' . $view_store_url . '" class="button">View Profile</a>';
 }
 
-// TODO: CHECK TO MAKE SURE WORKS *IT MIGHT BE BETTER TO REDIRECT TO STRIPE CONNECT
+// TODO: CHECK TO MAKE SURE WORKS *IT MIGHT BE BETTER TO REDIRECT TO STRIPE CONNECT 
 // Redirect vendors to settings after sign up
 add_filter( 'wcv_register_vendor_url', 'settings_redirect' );
 function settings_redirect( $url ){
@@ -171,17 +180,23 @@ add_filter( 'rank_math/snippet/rich_snippet_product_entity', function( $entity )
 // Add links to WCV Dashboard 
 function add_menu_item( $pages ){ 
 	$pages['bakery_help'] = array(
-		'slug'    => 'https://frosting.helpscoutdocs.com/',
+		'slug'    => 'https://frosting.helpscoutdocs.com?utm_source=frosting&utm_medium=website&utm_campaign=bism&utm_term=frosting-shop-manager',
 		'id'      => 'bakery_help', 
-		'label'   => __( 'Bakery Help', 'wcvendors-pro' ),
+		'label'   => __( 'Learning & Tutorials', 'wcvendors-pro' ),
 		'actions' => array()
 	);
     $pages['contact_frosting'] = array( 
-		'slug'    => 'https://bakerysupport.paperform.co/',
+		'slug'    => 'https://bakerysupport.paperform.co?utm_source=frosting&utm_medium=website&utm_campaign=bism&utm_term=frosting-shop-manager',
 		'id'      => 'contact_frosting',
         'label'   => __( 'Contact Frosting', 'wcvendors-pro' ), 
 		'actions' => array()
     ); 
+	$pages['invite_baker'] = array( 
+		'slug'    => 'https://frosting.helpscoutdocs.com/article/128-how-do-i-refer-a-baker-or-bakery?utm_source=frosting&utm_medium=website&utm_campaign=bism&utm_term=frosting-shop-manager',
+		'id'      => 'invite_baker',
+        'label'   => __( 'Invite a Baker', 'wcvendors-pro' ), 
+		'actions' => array()
+    ); 	
     return $pages;
 }
 add_filter( 'wcv_pro_dashboard_urls', 'add_menu_item' ); 
@@ -197,7 +212,7 @@ function change_nav_order( $pages ){
 		$new_nav_order['shop_coupon'] = $pages['shop_coupon']; 
 		$new_nav_order['shop_subscription'] = $pages['shop_subscription']; 
 		$new_nav_order['wcv_refund_request'] = $pages['wcv_refund_request']; 
-		$new_nav_order['rating'] = $pages['rating']; 
+		$new_nav_order['invite_baker'] = $pages['invite_baker'];  
 		$new_nav_order['bakery_help'] = $pages['bakery_help']; 
 		$new_nav_order['contact_frosting'] = $pages['contact_frosting']; 
 		$new_nav_order['settings'] = $pages['settings']; 
@@ -234,21 +249,19 @@ function reorder_settings_tabs( $tabs ){
 // Rename the tags field label to Product Options
 add_action( 'wcv_product_tags', 'wcv_change_tag_label' );
 function wcv_change_tag_label( $field ){
-	$field['label'] = 'Product Options';
+	$field['label'] = 'Customization field tags';
 	return $field;
 }
 
 // Add Custom fields
 add_action( 'wcv_after_product_details', 'wcv_frosting_taxonomy' );
 function wcv_frosting_taxonomy( $object_id ){
-	WCVendors_Pro_Form_helper::select( array(
+	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
 		'id'				=> 'wcv_custom_taxonomy_holiday[]',
 		'class'				=> 'select2',
 		'custom_tax'        => true,
 		'label'				=> __('Holidays', 'wcvendors-pro'),
-		'desc_tip'          => 'true',
-		'description'       => __( 'Culturally or religiously significant dates like Easter, Halloween, Christmas', 'wcvendors-pro' ),
 		'wrapper_start'     => '<div class="all-100">',
 		'wrapper_end'       => '</div>',
 		'taxonomy'			=>	'holiday',
@@ -258,15 +271,14 @@ function wcv_frosting_taxonomy( $object_id ){
 			'multiple' => 'multiple' ),
 		)
 	);
+	echo '<p class="tip">Culturally or religiously significant dates like Easter, Halloween, Christmas.</p>';
 
-	WCVendors_Pro_Form_helper::select( array(
+	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
 		'id'				=> 'wcv_custom_taxonomy_occasion[]',
 		'class'				=> 'select2',
 		'custom_tax'        => true,
 		'label'				=> __('Occasions', 'wcvendors-pro'),
-		'desc_tip'          => 'true',
-		'description'       => __( 'Special events and social gatherings like Birthday, Prom, Wedding', 'wcvendors-pro' ),
 		'wrapper_start'     => '<div class="all-100">',
 		'wrapper_end'       => '</div>',
 		'taxonomy'			=>	'occasion',
@@ -276,15 +288,14 @@ function wcv_frosting_taxonomy( $object_id ){
 			'multiple' => 'multiple' ),
 		)
 	);
+	echo '<p class="tip">Special events and social gatherings like Birthday, Prom, Wedding.</p>';
 
-	WCVendors_Pro_Form_helper::select( array(
+	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
 		'id'				=> 'wcv_custom_taxonomy_for_whom[]',
 		'class'				=> 'select2',
 		'custom_tax'        => true,
 		'label'				=> __('For Whom', 'wcvendors-pro'),
-		'desc_tip'          => 'true',
-		'description'       => __( 'Is this specifically for a boy or girl?  Leave blank if the item is gender neutral.', 'wcvendors-pro' ),
 		'wrapper_start'     => '<div class="all-100">',
 		'wrapper_end'       => '</div>',
 		'taxonomy'			=>	'for_whom',
@@ -294,7 +305,9 @@ function wcv_frosting_taxonomy( $object_id ){
 			'multiple' => 'multiple' ),
 		)
 	);
+	echo '<p class="tip">Is this specifically for a boy or girl?  Leave blank if the item is gender neutral.</p>';
 
+	//Changed to post id to test
 	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
 		'id'				=> 'wcv_custom_taxonomy_themes[]',
@@ -307,11 +320,11 @@ function wcv_frosting_taxonomy( $object_id ){
 		'taxonomy_args'		=> array(
 			'hide_empty'	=> 0, ),
 		'custom_attributes'	=> array(
-			'multiple' => 'multiple',
-			'data-tags' => 'true' ),
+			'multiple' 		=> 'multiple' ,
+			'data-tags'     => 'true' ),
 		)
 	);
-	echo '<p class="tip">Keywords that describe your design like Easter Egg, Diamond, Shark.</br>Just start typing to add a tag.</p>';
+	echo '<p class="tip">Keywords that describe your design like Easter Egg, Diamond, Shark.</br>Just start typing to add your own keyword.</p>';
 
 	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
@@ -325,11 +338,11 @@ function wcv_frosting_taxonomy( $object_id ){
 		'taxonomy_args'		=> array(
 			'hide_empty'		=> 0, ),
 		'custom_attributes'	=> array(
-			'multiple' => 'multiple' ,
-			'data-tags' => 'true' ),
+			'multiple' 		=> 'multiple' ,
+			'data-tags'     => 'true' ),
 		)
 	);
-	echo '<p class="tip">List any characters like Peter Pan, Aladdin, or Frankenstein?</br>Just start typing to add a tag.</p>';
+	echo '<p class="tip">List any characters like Peter Pan, Aladdin, or Frankenstein?</br>Just start typing to add your own keyword.</p>';
 
 	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
@@ -343,20 +356,18 @@ function wcv_frosting_taxonomy( $object_id ){
 		'taxonomy_args'		=> array(
 			'hide_empty'		=> 0, ),
 		'custom_attributes'	=> array(
-			'multiple' => 'multiple' ,
-			'data-tags' => 'true' ),
+			'multiple' 		=> 'multiple' ,
+			'data-tags'     => 'true' ),
 		)
 	);
-	echo '<p class="tip">Include the city and team like Bentonville Tigers.</br>Just start typing to add a tag.</p>';
+	echo '<p class="tip">Include the city and team like Bentonville Tigers.</br>Just start typing to add your own keyword.</br></p>';
 
-	WCVendors_Pro_Form_helper::select( array(
+	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
 		'id'				=> 'wcv_custom_taxonomy_specialty_diet[]',
 		'class'				=> 'select2',
 		'custom_tax'        => true,
 		'label'				=> __('Specialty Diet', 'wcvendors-pro'),
-		'desc_tip'          => 'true',
-		'description'       => __( 'Product is made for a special diet like gluten-free or vegan.', 'wcvendors-pro' ),
 		'wrapper_start'     => '<div class="all-100">',
 		'wrapper_end'       => '</div>',
 		'taxonomy'			=>	'specialty_diet',
@@ -366,15 +377,14 @@ function wcv_frosting_taxonomy( $object_id ){
 			'multiple' => 'multiple' ),
 		)
 	);
+	echo '<p class="tip">Product is made for a special diet like gluten-free or vegan.</p>';
 
-	WCVendors_Pro_Form_helper::select( array(
+	WCVendors_Pro_Form_helper::select2( array(
 		'post_id'			=> $object_id,
 		'id'				=> 'wcv_custom_taxonomy_age_restricted[]',
 		'class'				=> 'select2',
 		'custom_tax'        => true,
 		'label'				=> __('Adult Content', 'wcvendors-pro'),
-		'desc_tip'          => 'true',
-		'description'       => __( 'Does this item contain a sexually explicit, vulgar language, or drugs theme?', 'wcvendors-pro' ),
 		'wrapper_start'     => '<div class="all-100">',
 		'wrapper_end'       => '</div>',
 		'taxonomy'			=>	'age_restricted',
@@ -384,6 +394,7 @@ function wcv_frosting_taxonomy( $object_id ){
 			'multiple' => 'multiple' ),
 		)
 	);
+	echo '<p class="tip">Does this item contain a sexually explicit, vulgar language, or drugs theme?</p>';
 }
 
 /** Form Helpers and Placeholders */
@@ -393,7 +404,7 @@ function customize_wcv_product_title( $args ) {
     $more_args = array(
         'placeholder' => __( 'Ex: Princess Birthday Cookies - 1 dozen', 'wcvendors-pro' ),
         'desc_tip'    => 'true',
-        'description' => __( 'A concise and relevant title will help customers find your product.</br>Try to keep a consistent format like "Theme, Holiday or Occasion, Product Category - Size" for all your product titles.', 'wcvendors-pro' ),
+        'description' => __( 'A concise and relevant title will help customers find your product. Try to keep a consistent format like "Theme, Holiday or Occasion, Product Category - Size" for all your product titles.</br><i class="fak fa-frosting"></i> Learn more: <a href="https://frosting.helpscoutdocs.com/article/149-product-titles">Product Titles</a>', 'wcvendors-pro' ),
     );
     return array_merge( $args, $more_args);
 }
@@ -547,6 +558,109 @@ function wcv_output_vendor_ga_code( $vendor_id ){
 	return $ga_code;
 }
 
+/** RANK MATH SHOP PAGE FIX */
+// Change OG title for Rank Math on Vendor Pages
+function wcv_rankmath_change_og_title( $title ) {
+	WC_Vendors::log( $title ); 
+	if ( WCV_Vendors::is_vendor_page() ) {
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id = WCV_Vendors::get_vendor_id( $vendor_shop );
+		$shop_title = get_user_meta( $vendor_id, 'pv_shop_name', true );
+		$og_title = get_user_meta( $vendor_id, 'wcv_seo_fb_title', true );
+
+		if ( ! empty( $og_title ) ) {
+			$title = $og_title;
+		} else {
+			$title = $shop_title;
+		}
+	}
+	return $title;
+}
+add_filter( 'rank_math/frontend/title', 'wcv_rankmath_change_og_title' );
+
+// Change Meta description for Rank Math on Vendor Pages
+function wcv_rankmath_change_meta_description( $desc ) {
+	if ( WCV_Vendors::is_vendor_page() ) {
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
+		$shopdesc    = get_user_meta( $vendor_id, 'pv_shop_description', true );
+		$meta_desc   = get_user_meta( $vendor_id, 'wcv_seo_meta_description', true );
+
+		if ( ! empty( $meta_desc ) ) {
+			$desc = $meta_desc;
+		} else {
+			$desc = $shopdesc;
+		}
+	}
+	return $desc;
+}
+add_filter( 'rank_math/frontend/description', 'wcv_rankmath_change_meta_description' );
+
+// Change OG description for Rank Math on Vendor Pages
+function wcv_rankmath_change_og_description( $desc ) {
+	if ( WCV_Vendors::is_vendor_page() ) {
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
+		$shopdesc    = get_user_meta( $vendor_id, 'pv_shop_description', true );
+		$meta_desc   = get_user_meta( $vendor_id, 'wcv_seo_meta_description', true );
+		$og_desc     = get_user_meta( $vendor_id, 'wcv_seo_fb_description', true );
+
+		if ( ! empty( $og_desc ) ) {
+			$desc = $og_desc;
+		} elseif (! empty( $meta_desc)) {
+			$desc = $meta_desc;
+		} else {
+			$desc = $shopdesc;
+		}
+	}
+
+	return $desc;
+}
+add_filter( 'rank_math/frontend/description', 'wcv_rankmath_change_og_description' );
+
+// Change OG Facebook image for Rank Math on Vendor Pages
+function wcv_rankmath_change_facebook_og_image ( $image ) {
+	if ( WCV_Vendors::is_vendor_page() ) {
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
+		$og_image    = get_user_meta( $vendor_id, 'wcv_seo_fb_image_id', true );
+
+		if (!empty($og_image)) {
+			$image = wp_get_attachment_url( $og_image );
+		}
+	}
+	return $image;
+}
+add_filter( 'rank_math/opengraph/facebook/image', 'wcv_rankmath_change_facebook_og_image' );
+
+// Change OG Twitter image for Rank Math on Vendor Pages
+function wcv_rankmath_change_twitter_og_image ( $image ) {
+	if ( WCV_Vendors::is_vendor_page() ) {
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
+		$og_image    = get_user_meta( $vendor_id, 'wcv_seo_twitter_image_id', true );
+
+		if (!empty($og_image)) {
+			$image = wp_get_attachment_url( $og_image );
+		}
+	}
+	return $image;
+}
+add_filter( 'rank_math/opengraph/twitter/image', 'wcv_rankmath_change_twitter_og_image' );
+
+
+// Change OG URL for Rank Math on Vendor Pages.
+function wcv_rankmath_change_og_url ( $url ) {
+	if ( WCV_Vendors::is_vendor_page() ) {
+		$vendor_shop = urldecode( get_query_var( 'vendor_shop' ) );
+		$vendor_id   = WCV_Vendors::get_vendor_id( $vendor_shop );
+		$url         = WCV_Vendors::get_vendor_shop_page( $vendor_id );
+	}
+
+	return $url;
+}
+add_filter( 'rank_math/opengraph/url', 'wcv_rankmath_change_og_url' );
+
 /** Form Helpers and Placeholders */
 // Store - Store Description 
 add_filter( 'wcv_vendor_store_description', 'customize_wcv_vendor_store_description' );
@@ -592,7 +706,7 @@ function customize_wcv_settings_payments_description( $field ){
 // Settings - Policy page description
 add_action( 'wcvendors_settings_before_policies', 'customize_wcv_settings_policies_description' ); 
 function customize_wcv_settings_policies_description( $field ){
-	echo '<p class="wcv_sm_setting_tab_description">It is important that customers know your business policies up front.</br>The info you add below will be shown as a tab on all of your product pages. We included a few examples to help you get started and recommend that you seek professional advice on your specific policies.</p>';
+	echo '<p class="wcv_sm_setting_tab_description">It is important that customers know your business policies up front.</br>The info you add below will be shown as a tab on all of your product pages. We recommend that you seek professional advice on your specific policies.</p>';
 }
 // Policies - Terms & Conditions
 add_filter( 'wcv_policy_terms', 'customize_wcv_policy_terms' );
@@ -648,7 +762,7 @@ All other items - We require 24-hour notice after your order was placed.', 'wcve
 // Settings - Branding page description
 add_action( 'wcvendors_settings_before_branding', 'customize_wcv_settings_branding_description' ); 
 function customize_wcv_settings_branding_description( $field ){
-	echo '<p class="wcv_sm_setting_tab_description">Personalize your Frosting Shop Page by adding a banner and profile picture.</br>Profile Picture:</br>1:1 image ratio and .jpg or .png format.</br>Recommended size is 400 x 400px.</br>Shop Banner:</br>4:1 image ratio and .jpg or .png format.</br>Recommended size is 3360 x 840px.</p>';
+	echo '<p class="wcv_sm_setting_tab_description">Personalize your Frosting Shop Page by adding a banner and profile picture.</br><p class="tip"><i class="fak fa-frosting"></i> Learn more: <a href="https://frosting.helpscoutdocs.com/article/180-shop-banners-profile-pictures">Shop Banner, Profile Picture, and Free Templates.</a></br><b>Shop Banner:</b></br>4:1 image ratio in .jpg or .png format.</br>Recommended size is 3360 x 840px.<b></br>Profile Picture:</b></br>1:1 image ratio in .jpg or .png format.</br>Recommended size is 400 x 400px.</br></p>';
 }
 // Settings - Social page description
 add_action( 'wcvendors_settings_before_social', 'customize_wcv_settings_social_description' ); 
@@ -658,7 +772,8 @@ function customize_wcv_settings_social_description( $field ){
 // Settings - SEO page description
 add_action( 'wcvendors_settings_before_seo', 'customize_wcv_settings_seo_description' ); 
 function customize_wcv_settings_seo_description( $field ){
-	echo '<p class="wcv_sm_setting_tab_description">You can customize the default SEO and Social Media info for your products. Frosting automatically generates all of this info for you, so it is best to leave most of the boxes blank.</p>';
+	echo '<p class="wcv_sm_setting_tab_description">You can customize the default SEO and Social Media info for your Shop page. When you or anyone else shares your shop page URL, this is the information that will be shown.</br><p class="tip"><i class="fak fa-frosting"></i> Learn more: <a href="https://frosting.helpscoutdocs.com/article/195-customize-your-shop-pages-seo-and-social-share-appearance">Customize your Shop Pages SEO and Social share appearance.</a></p>
+		</p>';
 }
 
 /*------------------------------------*
@@ -704,6 +819,19 @@ function helpscout_beacon(){
 <script type="text/javascript">window.Beacon('init', '6ec654ae-7a21-494f-879d-8b5865fbd3ba')</script>
 <?php
 };
+
+/*------------------------------------*
+	$RANK MATH
+*------------------------------------*
+
+// MANUALLY ADD PAGE TO SITEMAP
+add_action( 'rank_math/sitemap/page_content', function() {
+    return '<url>
+		    <loc>https://vooglue.com/store/brian-carew-hopkins/</loc>
+		    <lastmod>2020-05-22T18:02:24+00:00</lastmod>
+	    </url>';
+});
+
 
 /*------------------------------------*
 	$WC VENDORS
