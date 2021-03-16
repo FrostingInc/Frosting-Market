@@ -51,6 +51,18 @@ Text Domain: kadence-child
 	$TEST CODE
 *------------------------------------*/
 
+.woocommerce div.product div.images .flex-control-thumbs{
+    margin-top: 8px;
+}
+.woocommerce div.product div.images .flex-control-thumbs li {
+    width: 100px;
+    height: 100px;
+}
+.woocommerce div.product div.images .flex-control-thumbs li:first-child {
+    width: 100px;
+    height: 100px;
+}
+
 /*------------------------------------*
 	$DEVICE TARGET
 *------------------------------------*/
@@ -108,6 +120,15 @@ Text Domain: kadence-child
     .menu_top_link a {
         border-bottom: 1px solid rgba(129,129,129,.2) !important;
     }
+    /** move helpscout beacon up 
+    .sc-fznyAO.fqivbU {
+        bottom: 80px;
+        }
+*/
+    .hsds-beacon .fqivbU {
+        bottom: 80px !important;
+    }
+    
 }
 
 /** Tablet */
@@ -262,6 +283,9 @@ Text Domain: kadence-child
 .jdgm-prev-badge__stars {
     color: #fed330;
 }
+a.jdgm-star.jdgm--off {
+    color: #fed330
+}
 /** Vendor's name */
 .product-action-wrap, .wcvendors_sold_by_in_loop {
     line-height: 1.2;
@@ -338,6 +362,15 @@ table.extra-options .label-tag {
 }
 .single-product div.product table.extra-options th.above, table.extra-options td.value.above {
     margin-bottom: 16px;
+}
+/** Add more opacity to disabled Add to Cart button **/
+.woocommerce a.button:disabled, .woocommerce a.button.disabled, 
+.woocommerce a.button[disabled]:disabled, .woocommerce button.button:disabled, 
+.woocommerce button.button.disabled, .woocommerce button.button[disabled]:disabled, 
+.woocommerce input.button:disabled, .woocommerce input.button.disabled, .woocommerce input.button[disabled]:disabled, 
+.woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit.disabled, 
+.woocommerce #respond input#submit[disabled]:disabled {
+    opacity: .4;
 }
 /** TI Wishlist - Wishlist button **/
 .single-product div.product form.cart .button.tinvwl_add_to_wishlist_button, div.product form.cart .tinvwl_add_to_wishlist_button {
@@ -592,6 +625,10 @@ a.button.quick-link-btn.shop_coupon:hover {
 }
 /** Add color to remove option */
 a.remove_row.delete {
+    color: red;
+    font-weight: 400;
+}
+a.remove_variation.delete {
     color: red;
     font-weight: 400;
 }
